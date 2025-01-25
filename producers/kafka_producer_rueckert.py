@@ -37,7 +37,7 @@ load_dotenv()
 
 def get_kafka_topic() -> str:
     """Fetch Kafka topic from environment or use default."""
-    topic = os.getenv("KAFKA_TOPIC", "buzz_topic")
+    topic = os.getenv("KAFKA_TOPIC", "sports_topic")
     logger.info(f"Kafka topic: {topic}")
     return topic
 
@@ -56,7 +56,7 @@ def get_message_interval() -> int:
 
 def generate_messages(producer, topic, interval_secs):
     """
-    Generate a stream of buzz messages and send them to a Kafka topic.
+    Generate a stream of sports messages and send them to a Kafka topic.
 
     Args:
         producer (KafkaProducer): The Kafka producer instance.
@@ -65,16 +65,16 @@ def generate_messages(producer, topic, interval_secs):
 
     """
     string_list: list = [
-        "I love Python!",
-        "Kafka is awesome.",
-        "Streaming data is fun.",
-        "This is a buzz message.",
-        "Have a great day!",
+        "Derek Jeter is overrated!",
+        "Patrick Mahomes.",
+        "Make podcast equipment harder to get.",
+        "Nikola Jokic always over.",
+        "Most referees are bad, it's their second job!",
     ]
     try:
         while True:
             for message in string_list:
-                logger.info(f"Generated buzz: {message}")
+                logger.info(f"Generated sports message: {message}")
                 producer.send(topic, value=message)
                 logger.info(f"Sent message to topic '{topic}': {message}")
                 time.sleep(interval_secs)
@@ -98,7 +98,7 @@ def main():
 
     - Ensures the Kafka topic exists.
     - Creates a Kafka producer using the `create_kafka_producer` utility.
-    - Streams generated buzz message strings to the Kafka topic.
+    - Streams generated sports message strings to the Kafka topic.
     """
     logger.info("START producer.")
     verify_services()
