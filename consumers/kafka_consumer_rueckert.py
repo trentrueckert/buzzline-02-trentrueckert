@@ -61,6 +61,13 @@ def process_message(message: str) -> None:
     """
     logger.info(f"Processing message: {message}")
 
+    # Define the target message 
+    target_message = "Patrick Mahomes."
+
+    if target_message in message:
+        # Trigger an alert if the target message is found
+        logger.warning(f"ALERT: Target message found: {message}")
+
 
 #####################################
 # Define main function for this module
